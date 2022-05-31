@@ -88,6 +88,7 @@ class JcNotificationPlayer private constructor(private val context: Context) : J
             channel.enableVibration(false)
             channel.setSound(null, null)
 
+
             val notificationManager = context.getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }
@@ -112,6 +113,7 @@ class JcNotificationPlayer private constructor(private val context: Context) : J
 
         remoteView.setTextViewText(R.id.txt_current_music_notification, title)
         remoteView.setTextViewText(R.id.txt_duration_notification, time)
+
         remoteView.setImageViewResource(R.id.icon_player, iconResource)
         remoteView.setOnClickPendingIntent(R.id.btn_next_notification, buildPendingIntent(NEXT, NEXT_ID))
         remoteView.setOnClickPendingIntent(R.id.btn_prev_notification, buildPendingIntent(PREVIOUS, PREVIOUS_ID))

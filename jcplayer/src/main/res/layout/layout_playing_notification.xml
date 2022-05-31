@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#C59A68"
 
@@ -22,16 +22,16 @@
 
     <RelativeLayout
         android:id="@+id/relativePlayersControls"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-android:layout_alignParentTop="true"
-        android:layout_marginLeft="-230dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginStart="-150dp"
+        android:layout_marginLeft="@dimen/spacing_normal"
         android:layout_toEndOf="@id/icon_player"
         android:layout_toRightOf="@id/icon_player">
 
-        <ImageButton
+
+    <ImageButton
             android:id="@+id/btn_pause_notification"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -113,7 +113,7 @@ android:layout_alignParentTop="true"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="-40dp"
+        android:layout_marginTop="-60dp"
         android:layout_marginRight="-255dp"
         app:srcCompat="@drawable/notipeople" />
 
