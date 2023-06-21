@@ -23,8 +23,10 @@ import com.example.jean.jcplayer.general.PlayerUtil.toTimeSongString
 import com.example.jean.jcplayer.general.errors.AudioListNullPointerException
 import com.example.jean.jcplayer.general.errors.OnInvalidPathListener
 import com.example.jean.jcplayer.model.JcAudio
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.view_jcplayer.view.*
-
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 /**
  * This class is the JcAudio View. Handles user interactions and communicates events to [JcPlayerManager].
@@ -34,8 +36,7 @@ import kotlinx.android.synthetic.main.view_jcplayer.view.*
  */
 class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChangeListener,
     JcPlayerManagerListener {
-    // Declare the ImageView
-    private lateinit var imgSinger: ImageView;
+    private lateinit var imgSinger: CircleImageView
     private val jcPlayerManager: JcPlayerManager by lazy {
         JcPlayerManager.getInstance(context).get()!!
     }
@@ -96,7 +97,7 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
 
     private fun init() {
         View.inflate(context, R.layout.view_jcplayer, this)
-
+        imgSinger = findViewById(R.id.imgSingerPhoto)
         btnNext?.setOnClickListener(this)
         btnPrev?.setOnClickListener(this)
         btnPlay?.setOnClickListener(this)
@@ -105,9 +106,8 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
         btnRepeat?.setOnClickListener(this)
         btnRepeatOne?.setOnClickListener(this)
         seekBar?.setOnSeekBarChangeListener(this)
-        // Initialize the ImageView
-        imgSinger = findViewById(R.id.imgSingerPhoto)
     }
+
 
     private fun setAttributes(attrs: TypedArray) {
         val defaultColor = ResourcesCompat.getColor(resources, android.R.color.black, null)
@@ -538,18 +538,11 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
         dismissProgressBar()
         resetPlayerInfo()
         onUpdateTitle(status.jcAudio)
-
         val duration = status.duration.toInt()
         seekBar?.post { seekBar?.max = duration }
         txtDuration?.post { txtDuration?.text = toTimeSongString(duration) }
-        // Load and set the singer image
-        val singerImage = status.jcAudio.singerImage
-        if (singerImage != null) {
-            imgSinger.setImageBitmap(singerImage)
-            imgSinger.visibility = View.VISIBLE
-        } else {
-            imgSinger.visibility = View.GONE
-        }
+        status.setSingerImage(status.jcAudio.singerImage.toString())
+
     }
 
     override fun onProgressChanged(seekBar: SeekBar, i: Int, fromUser: Boolean) {

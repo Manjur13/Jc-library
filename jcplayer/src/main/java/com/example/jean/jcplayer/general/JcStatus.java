@@ -1,9 +1,15 @@
 package com.example.jean.jcplayer.general;
 
+import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.jean.jcplayer.R;
 import com.example.jean.jcplayer.model.JcAudio;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by rio on 02 January 2017.
@@ -11,30 +17,31 @@ import com.example.jean.jcplayer.model.JcAudio;
 public class JcStatus {
     @Nullable
     private JcAudio jcAudio;
-    private ImageView imageView;
+
     private long duration;
     private long currentPosition;
     private PlayState playState;
-
+    private CircleImageView circleImageView;
     public JcStatus() {
         this(null, 0, 0, PlayState.PREPARING,null);
     }
 
-    public JcStatus(JcAudio jcAudio, long duration, long currentPosition, PlayState playState,ImageView imageView) {
+    public JcStatus(JcAudio jcAudio, long duration, long currentPosition, PlayState playState,CircleImageView circleImageView) {
         this.jcAudio = jcAudio;
         this.duration = duration;
         this.currentPosition = currentPosition;
         this.playState = playState;
-        this.imageView = imageView;
+        this.circleImageView = circleImageView;
     }
 
-    public ImageView getImageView() {
-        return imageView;
+    public CircleImageView getCircleImageView() {
+        return circleImageView;
     }
 
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
+    public void setCircleImageView(CircleImageView circleImageView) {
+        this.circleImageView = circleImageView;
     }
+
 
     public JcAudio getJcAudio() {
         return jcAudio;
@@ -68,7 +75,16 @@ public class JcStatus {
         this.playState = playState;
     }
 
+
+
     public enum PlayState {
         PLAY, PAUSE, STOP, CONTINUE, PREPARING, PLAYING
+    }
+    public void setSingerImage(String imageUrl) {
+        Glide.with(circleImageView.getContext())
+                .load(imageUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .placeholder(R.drawable.baseline_downloading_24) // Placeholder image in case the URL is null or loading fails
+                .into(circleImageView);
     }
 }

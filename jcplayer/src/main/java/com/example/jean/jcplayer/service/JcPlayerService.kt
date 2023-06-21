@@ -158,7 +158,6 @@ class JcPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.O
     override fun onPrepared(mediaPlayer: MediaPlayer) {
         this.mediaPlayer = mediaPlayer
         val status = updateStatus(currentAudio, JcStatus.PlayState.PLAY)
-
         updateTime()
         serviceListener?.onPreparedListener(status)
     }
