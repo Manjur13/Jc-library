@@ -6,7 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.example.jean.jcplayer.view.JcPlayerView">
-
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgSingerPhoto"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="35dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="@id/txtCurrentMusic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtCurrentMusic"
+        android:layout_marginLeft="35dp" />
     <TextView
         android:id="@+id/txtCurrentMusic"
         android:layout_width="match_parent"

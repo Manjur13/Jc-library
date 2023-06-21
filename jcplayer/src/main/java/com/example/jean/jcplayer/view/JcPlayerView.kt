@@ -10,6 +10,7 @@ import android.support.annotation.DrawableRes
 import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import com.daimajia.androidanimations.library.Techniques
@@ -33,7 +34,8 @@ import kotlinx.android.synthetic.main.view_jcplayer.view.*
  */
 class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChangeListener,
     JcPlayerManagerListener {
-
+    // Declare the ImageView
+    private lateinit var imgSinger: ImageView;
     private val jcPlayerManager: JcPlayerManager by lazy {
         JcPlayerManager.getInstance(context).get()!!
     }
@@ -103,6 +105,8 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
         btnRepeat?.setOnClickListener(this)
         btnRepeatOne?.setOnClickListener(this)
         seekBar?.setOnSeekBarChangeListener(this)
+        // Initialize the ImageView
+        imgSinger = findViewById(R.id.imgSingerPhoto)
     }
 
     private fun setAttributes(attrs: TypedArray) {
@@ -538,6 +542,14 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
         val duration = status.duration.toInt()
         seekBar?.post { seekBar?.max = duration }
         txtDuration?.post { txtDuration?.text = toTimeSongString(duration) }
+        // Load and set the singer image
+        val singerImage = status.jcAudio.singerImage
+        if (singerImage != null) {
+            imgSinger.setImageBitmap(singerImage)
+            imgSinger.visibility = View.VISIBLE
+        } else {
+            imgSinger.visibility = View.GONE
+        }
     }
 
     override fun onProgressChanged(seekBar: SeekBar, i: Int, fromUser: Boolean) {

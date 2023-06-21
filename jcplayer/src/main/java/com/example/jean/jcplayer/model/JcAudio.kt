@@ -1,5 +1,6 @@
 package com.example.jean.jcplayer.model
 
+import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 import android.support.annotation.RawRes
@@ -8,8 +9,8 @@ import kotlinx.android.parcel.Parcelize
 
 
 /**
- * This class is an type of audio model .
- * @author Jean Carlos (Github: @jeancsanchez)
+ * This class is a type of audio model.
+ * @Author Jean Carlos (Github: @jeancsanchez)
  * @date 27/06/16.
  * Jesus loves you.
  */
@@ -18,7 +19,8 @@ data class JcAudio constructor(
         var title: String,
         var position: Int? = -1,
         val path: String,
-        val origin: Origin
+        val origin: Origin,
+        val singerImage: Bitmap? = null // Add singerImage property
 ) : Parcelable {
 
     companion object {
