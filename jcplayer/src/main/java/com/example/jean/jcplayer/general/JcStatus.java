@@ -21,26 +21,19 @@ public class JcStatus {
     private long duration;
     private long currentPosition;
     private PlayState playState;
-    private CircleImageView circleImageView;
     public JcStatus() {
-        this(null, 0, 0, PlayState.PREPARING,null);
+        this(null, 0, 0, PlayState.PREPARING);
     }
 
-    public JcStatus(JcAudio jcAudio, long duration, long currentPosition, PlayState playState,CircleImageView circleImageView) {
+    public JcStatus(JcAudio jcAudio, long duration, long currentPosition, PlayState playState) {
         this.jcAudio = jcAudio;
         this.duration = duration;
         this.currentPosition = currentPosition;
         this.playState = playState;
-        this.circleImageView = circleImageView;
+
     }
 
-    public CircleImageView getCircleImageView() {
-        return circleImageView;
-    }
 
-    public void setCircleImageView(CircleImageView circleImageView) {
-        this.circleImageView = circleImageView;
-    }
 
 
     public JcAudio getJcAudio() {
@@ -79,12 +72,5 @@ public class JcStatus {
 
     public enum PlayState {
         PLAY, PAUSE, STOP, CONTINUE, PREPARING, PLAYING
-    }
-    public void setSingerImage(String imageUrl) {
-        Glide.with(circleImageView.getContext())
-                .load(imageUrl)
-                .apply(RequestOptions.circleCropTransform())
-                .placeholder(R.drawable.baseline_downloading_24) // Placeholder image in case the URL is null or loading fails
-                .into(circleImageView);
     }
 }

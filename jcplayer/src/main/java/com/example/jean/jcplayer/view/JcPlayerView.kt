@@ -36,10 +36,10 @@ import com.bumptech.glide.request.RequestOptions
  */
 class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChangeListener,
     JcPlayerManagerListener {
-    private lateinit var imgSinger: CircleImageView
     private val jcPlayerManager: JcPlayerManager by lazy {
         JcPlayerManager.getInstance(context).get()!!
     }
+    private lateinit var imgSingerPhoto: CircleImageView
 
     val myPlaylist: List<JcAudio>
         get() = jcPlayerManager.playlist
@@ -97,7 +97,6 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
 
     private fun init() {
         View.inflate(context, R.layout.view_jcplayer, this)
-        imgSinger = findViewById(R.id.imgSingerPhoto)
         btnNext?.setOnClickListener(this)
         btnPrev?.setOnClickListener(this)
         btnPlay?.setOnClickListener(this)
@@ -106,6 +105,8 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
         btnRepeat?.setOnClickListener(this)
         btnRepeatOne?.setOnClickListener(this)
         seekBar?.setOnSeekBarChangeListener(this)
+        // Initialize the imgSingerPhoto ImageView
+        imgSingerPhoto = findViewById(R.id.imgSingerPhoto)
     }
 
 
@@ -541,8 +542,11 @@ class JcPlayerView : LinearLayout, View.OnClickListener, SeekBar.OnSeekBarChange
         val duration = status.duration.toInt()
         seekBar?.post { seekBar?.max = duration }
         txtDuration?.post { txtDuration?.text = toTimeSongString(duration) }
-        status.setSingerImage(status.jcAudio.singerImage.toString())
-
+        // Check if the audio title contains "Nadeem Sarwar"
+        if (status.jcAudio.title.contains("Nadeem")) {
+            // Set the desired image for "Nadeem Sarwar"
+            imgSingerPhoto.setImageResource(R.drawable.nadeem_sarwar_icon)
+        }
     }
 
     override fun onProgressChanged(seekBar: SeekBar, i: Int, fromUser: Boolean) {
